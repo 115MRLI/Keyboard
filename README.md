@@ -67,3 +67,53 @@
 ##### 展示样式
 
 ![](image/screenshot-1528252018803.jpg)
+
+
+##### 新加安全键盘
+
+1）调用方式
+
+                <board.key.key_board.safety.KeyBoardSafety
+                        android:id="@+id/virtualKeyboardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        //这个是必须的表示键盘从底部调起
+                        android:layout_alignParentBottom="true" />
+                        
+                        
+2）act调用
+               
+               textAmount = (EditText) findViewById(R.id.textAmount);
+              
+                      // 设置不调用系统键盘
+                      if (android.os.Build.VERSION.SDK_INT <= 10) {
+                          textAmount.setInputType(InputType.TYPE_NULL);
+                      } else {
+                          this.getWindow().setSoftInputMode(
+                                  WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                          try {
+                              Class<EditText> cls = EditText.class;
+                              Method setShowSoftInputOnFocus;
+                              setShowSoftInputOnFocus = cls.getMethod("setShowSoftInputOnFocus", boolean.class);
+                              setShowSoftInputOnFocus.setAccessible(true);
+                              setShowSoftInputOnFocus.invoke(textAmount, false);
+                          } catch (Exception e) {
+                              e.printStackTrace();
+                          }
+                      }
+              
+                      virtualKeyboardView = (KeyBoardSafety) findViewById(R.id.virtualKeyboardView);
+                      //设置输入框
+                      textAmount.setOnClickListener(new View.OnClickListener() {
+                          @Override
+                          public void onClick(View v) {
+              
+                              virtualKeyboardView.show(textAmount);
+                          }
+                      });
+                        
+##### 样式展示   
+
+![](image/screenshot-1528353350998.jpg)
+![](image/screenshot-1528353364889.jpg)
+![](image/screenshot-1528353376793.jpg)
