@@ -10,9 +10,10 @@ import android.widget.EditText;
 import java.lang.reflect.Method;
 
 import board.key.key_board.general.VirtualKeyboardView;
+import board.key.key_board.safety.KeyBoardSafety;
 
 public class MainActivity extends AppCompatActivity {
-    private VirtualKeyboardView virtualKeyboardView;
+    private KeyBoardSafety virtualKeyboardView;
 
 
     private EditText textAmount;
@@ -44,14 +45,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        virtualKeyboardView = (VirtualKeyboardView) findViewById(R.id.virtualKeyboardView);
+        virtualKeyboardView = (KeyBoardSafety) findViewById(R.id.virtualKeyboardView);
         //设置输入框
-        virtualKeyboardView.setView(textAmount);
         textAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                virtualKeyboardView.Opean();
+                virtualKeyboardView.show(textAmount);
             }
         });
     }
